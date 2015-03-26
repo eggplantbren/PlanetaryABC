@@ -26,6 +26,14 @@
 class MyModel:public DNest3::Model
 {
 	private:
+		static const int K_max = 10;
+
+		// Parameters that determine K (number of planets)
+		// for each star
+		std::vector< std::vector<double> >  u_K;
+
+		// Partial perturbs
+		double perturb_u_K();
 
 	public:
 		MyModel();
