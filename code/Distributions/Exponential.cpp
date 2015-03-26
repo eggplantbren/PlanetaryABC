@@ -1,6 +1,7 @@
 #include "Exponential.h"
 #include "RandomNumberGenerator.h"
 #include "Utils.h"
+#include <cmath>
 
 using namespace DNest3;
 
@@ -26,5 +27,15 @@ double Exponential::perturb()
 
 void Exponential::compute_probs()
 {
+	double tot = 0.;
+	for(size_t i=0; i<probs.size(); i++)
+	{
+		probs[i] = exp(-(double)i/mu);
+		tot += probs[i];
+	}
+
+	// Normalise
+	for(size_t i=0; i<probs.size(); i++)
+		probs[i] /= tot;
 }
 
