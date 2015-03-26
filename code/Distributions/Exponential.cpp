@@ -4,7 +4,8 @@
 
 using namespace DNest3;
 
-Exponential::Exponential()
+Exponential::Exponential(int K_max)
+:probs(K_max)
 {
 
 }
@@ -12,12 +13,18 @@ Exponential::Exponential()
 void Exponential::fromPrior()
 {
 	mu = 10.*randomU();
+	compute_probs();
 }
 
 double Exponential::perturb()
 {
 	mu += 10.*randh();
 	wrap(mu, 0., 10.);
+	compute_probs();
 	return 0.;
+}
+
+void Exponential::compute_probs()
+{
 }
 
