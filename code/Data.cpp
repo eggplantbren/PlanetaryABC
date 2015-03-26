@@ -23,5 +23,10 @@ void Data::load(const char* filename)
 		counts.push_back(temp);
 
 	fin.close();
+
+	// Compute total (number of stars)
+	total = 0;
+	for(size_t i=0; i<counts.size(); i++)
+		total += counts[i];
 }
 

@@ -7,6 +7,7 @@ class Data
 {
 	private:
 		std::vector<int> counts;
+		int total;
 
 	public:
 		Data();
@@ -15,6 +16,9 @@ class Data
 		// Getter
 		const std::vector<int>& get_counts() const
 		{ return counts; }
+
+		int get_total() const
+		{ return total; }
 
 	// Singleton
 	private:
