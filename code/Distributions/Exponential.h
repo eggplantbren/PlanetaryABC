@@ -12,7 +12,7 @@ class Exponential
 		void compute_probs();
 
 	public:
-		Exponential(int K_max);
+		Exponential(int num_possibilities);
 		void fromPrior();
 		double perturb();
 
