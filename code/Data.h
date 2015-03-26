@@ -1,9 +1,13 @@
 #ifndef _Data_
 #define _Data_
 
+#include <vector>
+
 class Data
 {
 	private:
+		std::vector<int> counts;
+		int K_max;
 
 	public:
 		Data();
