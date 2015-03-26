@@ -30,7 +30,7 @@ kois = download_catalog("cumulative")
 stlr = download_catalog("q1_q16_stellar")
 
 # Select the cool stars following Dressing.
-cool = (stlr.teff < 4000) & (stlr.logg > 3)
+cool = (stlr.teff < 4000) & (stlr.logg > 3) & np.isfinite(stlr.rrmscdpp06p0)
 cool_stlr = stlr[cool]
 
 # Select the KOIs that fall into this set.
@@ -41,9 +41,21 @@ cool_kois = cool_kois[cool_kois.koi_pdisposition == "CANDIDATE"]
 
 # Count the multiplicity.
 counts = np.array(cool_kois.groupby("kepid").kepoi_name.count())
-hist, _ = np.histogram(counts, np.arange(-0.5, counts.max()+1.5))
+hist, _ = np.histogram(counts, np.arange(-0.5, counts.max()+2.5))
 hist[0] = len(cool_stlr) - hist.sum()
 
 # Save to a file.
 with open("counts.txt", "w") as f:
     f.write("\n".join(map("{0}".format, hist)))
+
+# Save the stellar parameters.
+params = cool_stlr[["kepid", "radius", "mass", "rrmscdpp06p0"]]
+params = pd.merge(
+    params,
+    cool_kois.groupby("kepid")[["kepoi_name"]].count(),
+    how="outer",
+    left_on="kepid",
+    right_index=True,
+)
+params.to_csv("stlr.csv", index=False, na_rep="0",
+              header=["kepid", "radius", "mass", "cdpp6", "koi_count"])
