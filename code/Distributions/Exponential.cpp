@@ -2,18 +2,20 @@
 #include "RandomNumberGenerator.h"
 #include "Utils.h"
 #include <cmath>
+#include <iostream>
 
+using namespace std;
 using namespace DNest3;
 
-Exponential::Exponential(int K_max)
-:probs(K_max)
+Exponential::Exponential(int num_possibilities)
+:probs(num_possibilities)
 {
 
 }
 
 void Exponential::fromPrior()
 {
-	mu = 10.*randomU();
+	mu = 3.;//10.*randomU();
 	compute_probs();
 }
 
@@ -37,5 +39,17 @@ void Exponential::compute_probs()
 	// Normalise
 	for(size_t i=0; i<probs.size(); i++)
 		probs[i] /= tot;
+}
+
+int Exponential::generate(double u) const
+{
+	double cumulative_prob = 0.;
+	for(size_t i=0; i<probs.size(); i++)
+	{
+		cumulative_prob += probs[i];
+		if(u <= cumulative_prob)
+			return static_cast<int>(i);
+	}
+	return static_cast<int>(probs.size());
 }
 
