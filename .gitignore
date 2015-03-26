@@ -1,3 +1,9 @@
 main
 *.o
+levels.txt
+sample.txt
+sample_info.txt
+weights.txt
+posterior_sample.txt
+*.pyc
 
