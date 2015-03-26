@@ -15,7 +15,7 @@ Exponential::Exponential(int num_possibilities)
 
 void Exponential::fromPrior()
 {
-	mu = 3.;//10.*randomU();
+	mu = 10.*randomU();
 	compute_probs();
 }
 
