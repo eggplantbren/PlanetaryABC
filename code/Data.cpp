@@ -22,9 +22,6 @@ void Data::load(const char* filename)
 	while(fin>>temp)
 		counts.push_back(temp);
 
-	K_max = static_cast<int>(counts.size()) - 1;
-	cout<<"# K_max = "<<K_max<<"."<<endl;
-
 	fin.close();
 }
 
