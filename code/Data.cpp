@@ -4,6 +4,8 @@
 
 using namespace std;
 
+Data Data::instance;
+
 Data::Data()
 {
 
@@ -20,8 +22,8 @@ void Data::load(const char* filename)
 	while(fin>>temp)
 		counts.push_back(temp);
 
-	K_max = counts.size();
-	cout<<"# K_max = "<<K_max<<endl;
+	K_max = static_cast<int>(counts.size()) - 1;
+	cout<<"# K_max = "<<K_max<<"."<<endl;
 
 	fin.close();
 }
