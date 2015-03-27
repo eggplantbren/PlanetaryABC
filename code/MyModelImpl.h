@@ -122,12 +122,18 @@ vector<int> MyModel<Distribution>::compute_hist() const
 	double inclination, a, period, b;
 	double stellar_mass = 1.;
 	double stellar_radius = 1.;
+//	cout<<"Thickness = "<<thickness<<endl;
 
 	// Loop over all stars
 	for(size_t i=0; i<u_K.size(); i++)
 	{
+//		cout<<"# Star "<<(i+1)<<": "<<endl;
 		K = dist.generate(u_K[i]);
 		num_observed = 0;
+
+//		cout<<"Number of planets = "<<K<<"."<<endl;
+//		cout<<"Inclination of star: "<<acos(u_A[i])<<endl;
+//		cout<<"(inclination, period, a, b, observed)"<<endl;
 
 		// Loop over all planets around this star
 		for(int j=0; j<K; j++)
@@ -137,6 +143,8 @@ vector<int> MyModel<Distribution>::compute_hist() const
 			period = exp(log(5.) + log(100.)*u_P[i][j]);
 			a = pow((_G*period*period*stellar_mass)/(4.*M_PI*M_PI), 1./3);
 			b = a*cos(inclination)/stellar_radius;
+//			cout<<inclination<<' '<<period<<' '<<a<<' '<<b<<' '<<(fabs(b) < 1)<<endl;
+
 			if(fabs(b) < 1)
 			{
 				// Planet was observed
@@ -145,6 +153,11 @@ vector<int> MyModel<Distribution>::compute_hist() const
 		}
 		hist[num_observed]++;
 	}
+//	cout<<"Histogram: ";
+//	for(size_t i=0; i<hist.size(); i++)
+//		cout<<hist[i]<<' ';
+//	cout<<endl;
+//	exit(0);
 
 	return hist;
 }
