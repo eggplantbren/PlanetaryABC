@@ -2,7 +2,7 @@
 #include "Start.h"
 #include "MyModel.h"
 #include "Data.h"
-#include "Distributions/Exponential.h"
+#include "Distributions/Dirichlet.h"
 
 using namespace std;
 using namespace DNest3;
@@ -11,8 +11,8 @@ int main(int argc, char** argv)
 {
 	Data::get_instance().load("temp.txt");
 
-	MTSampler< MyModel<Exponential> > sampler
-			= setup_mt< MyModel<Exponential> >(argc, argv);
+	MTSampler< MyModel<Dirichlet> > sampler
+			= setup_mt< MyModel<Dirichlet> >(argc, argv);
 	sampler.run();
 
 
