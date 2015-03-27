@@ -58,17 +58,45 @@ double MyModel<Distribution>::perturb_u_K()
 	return 0.;
 }
 
+
+template<class Distribution>
+double MyModel<Distribution>::perturb_u_R()
+{
+	vector< vector<double> >* which;
+	if(randomU() <= 0.33333)
+		which = &(u_R);
+	else if(randomU() <= 0.5)
+		which = &(u_P);
+	else
+		which = &(u_dI);
+
+	int i, j;
+	int reps = static_cast<int>(floor(pow(10., 3.*randomU())));
+
+	for(int k=0; k<reps; k++)
+	{
+		i = randInt(which->size());
+		j = randInt((*which)[i].size());
+		(*which)[i][j] = randomU();
+	}
+
+	return 0.;
+}
+
+
 template<class Distribution>
 double MyModel<Distribution>::perturb()
 {
 	double logH = 0.;
 
-	int which = randInt(2);
+	int which = randInt(3);
 
 	if(which == 0)
+		logH += dist.perturb();
+	else if(which == 1)
 		logH += perturb_u_K();
 	else
-		logH += dist.perturb();
+		logH += perturb_u_R();
 
 	return logH;
 }

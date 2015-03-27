@@ -47,6 +47,7 @@ class MyModel:public DNest3::Model
 
 		// Partial perturbs
 		double perturb_u_K();
+		double perturb_u_R();
 
 		// Calculate simulated histogram/data
 		std::vector<int> compute_hist() const;
