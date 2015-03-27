@@ -9,7 +9,7 @@ using namespace DNest3;
 
 int main(int argc, char** argv)
 {
-	Data::get_instance().load("temp.txt");
+	Data::get_instance().load("counts.txt");
 
 	MTSampler< MyModel<Dirichlet> > sampler
 			= setup_mt< MyModel<Dirichlet> >(argc, argv);

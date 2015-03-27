@@ -180,6 +180,12 @@ double MyModel<Distribution>::logLikelihood() const
 template<class Distribution>
 void MyModel<Distribution>::print(std::ostream& out) const
 {
+	out<<thickness<<' ';
+
+	vector<double> probs = dist.get_probs();
+	for(size_t i=0; i<probs.size(); i++)
+		out<<probs[i]<<' ';
+
 	vector<int> hist = compute_hist();
 	for(size_t i=0; i<hist.size(); i++)
 		out<<hist[i]<<' ';
