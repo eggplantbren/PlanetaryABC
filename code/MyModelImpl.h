@@ -25,7 +25,16 @@ void MyModel<Distribution>::fromPrior()
 	dist.fromPrior();
 
 	for(size_t i=0; i<u_K.size(); i++)
+	{
 		u_K[i] = randomU();
+		u_A[i] = randomU();
+		for(int j=0; j<K_max; j++)
+		{
+			u_R[i][j] = randomU();
+			u_P[i][j] = randomU();
+			u_dI[i][j] = randomU();
+		}
+	}
 }
 
 template<class Distribution>
