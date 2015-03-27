@@ -44,7 +44,12 @@ double MyModel<Distribution>::perturb()
 {
 	double logH = 0.;
 
-	logH += perturb_u_K();
+	int which = randInt(2);
+
+	if(which == 0)
+		logH += perturb_u_K();
+	else
+		logH += dist.perturb();
 
 	return logH;
 }
@@ -55,9 +60,12 @@ vector<int> MyModel<Distribution>::compute_hist() const
 	const vector<int> counts = Data::get_instance().get_counts();
 	vector<int> hist(counts.size(), 0);
 
+	int K;
 	for(size_t i=0; i<u_K.size(); i++)
 	{
-		//hist[]++;
+		K = dist.generate(u_K[i]);
+		if(K < static_cast<int>(hist.size()))
+			hist[K]++;
 	}
 
 	return hist;
@@ -69,8 +77,11 @@ double MyModel<Distribution>::logLikelihood() const
 	double logL = 0.;
 
 	const vector<int> counts = Data::get_instance().get_counts();
+	vector<int> hist = compute_hist();
 
-//	vector<int> hist(Data::get_instance().get_counts);
+	for(size_t i=0; i<counts.size(); i++)
+		logL += pow((double)(hist[i] - counts[i]), 2);
+	logL = -logL;
 
 	return logL;
 }
