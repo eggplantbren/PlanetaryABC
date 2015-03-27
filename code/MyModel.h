@@ -30,7 +30,7 @@ class MyModel:public DNest3::Model
 
 		// Parameters that determine K (number of planets)
 		// for each star
-		std::vector< std::vector<double> >  u_K;
+		std::vector<double>  u_K;
 
 		// Partial perturbs
 		double perturb_u_K();

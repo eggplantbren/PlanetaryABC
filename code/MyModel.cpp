@@ -8,7 +8,7 @@ using namespace std;
 using namespace DNest3;
 
 MyModel::MyModel()
-:u_K(Data::get_instance().get_total(), vector<double>(K_max))
+:u_K(Data::get_instance().get_total())
 {
 
 }
@@ -16,20 +16,18 @@ MyModel::MyModel()
 void MyModel::fromPrior()
 {
 	for(size_t i=0; i<u_K.size(); i++)
-		for(size_t j=0; j<u_K[i].size(); j++)
-			u_K[i][j] = randomU();
+		u_K[i] = randomU();
 }
 
 double MyModel::perturb_u_K()
 {
-	int i, j;
+	int i;
 	int reps = static_cast<int>(floor(pow(10., 3.*randomU())));
 
 	for(int k=0; k<reps; k++)
 	{
 		i = randInt(u_K.size());
-		j = randInt(u_K[i].size());
-		u_K[i][j] = randomU();
+		u_K[i] = randomU();
 	}
 
 	return 0.;
