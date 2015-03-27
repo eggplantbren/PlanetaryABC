@@ -101,7 +101,7 @@ double MyModel<Distribution>::perturb()
 		logH += perturb_u_R();
 	else
 	{
-		thickness += 0.5*M_PIrandh();
+		thickness += 0.5*M_PI*randh();
 		wrap(thickness, 0., 0.5*M_PI);
 	}
 
@@ -111,15 +111,38 @@ double MyModel<Distribution>::perturb()
 template<class Distribution>
 vector<int> MyModel<Distribution>::compute_hist() const
 {
+	// Newton's constant in $R_\odot^3 M_\odot^{-1} {days}^{-2}$.
+	double _G = 2945.4625385377644;
+
 	const vector<int> counts = Data::get_instance().get_counts();
 	vector<int> hist(counts.size(), 0);
 
-	int K;
+	int K, num_observed;
+	double inclination, a, period, b;
+	double stellar_mass = 1.;
+	double stellar_radius = 1.;
+
+	// Loop over all stars
 	for(size_t i=0; i<u_K.size(); i++)
 	{
 		K = dist.generate(u_K[i]);
-		if(K < static_cast<int>(hist.size()))
-			hist[K]++;
+		num_observed = 0;
+
+		// Loop over all planets around this star
+		for(int j=0; j<K; j++)
+		{
+			inclination = acos(u_A[i])
+						+ thickness*(u_dI[i][j] - 0.5);
+			period = exp(log(5.) + log(100.)*u_P[i][j]);
+			a = pow((_G*period*period*stellar_mass)/(4.*M_PI*M_PI), 1./3);
+			b = a*cos(inclination)/stellar_radius;
+			if(fabs(b) < 1)
+			{
+				// Planet was observed
+				num_observed++;
+			}
+		}
+		hist[num_observed]++;
 	}
 
 	return hist;
