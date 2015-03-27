@@ -35,6 +35,8 @@ void MyModel<Distribution>::fromPrior()
 			u_dI[i][j] = randomU();
 		}
 	}
+
+	thickness = 0.5*M_PI*randomU();
 }
 
 template<class Distribution>
@@ -89,14 +91,19 @@ double MyModel<Distribution>::perturb()
 {
 	double logH = 0.;
 
-	int which = randInt(3);
+	int which = randInt(4);
 
 	if(which == 0)
 		logH += dist.perturb();
 	else if(which == 1)
 		logH += perturb_u_K();
-	else
+	else if(which == 2)
 		logH += perturb_u_R();
+	else
+	{
+		thickness += 0.5*randh();
+		wrap(thickness, 0., 1.);
+	}
 
 	return logH;
 }

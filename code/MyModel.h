@@ -45,6 +45,9 @@ class MyModel:public DNest3::Model
 		std::vector< std::vector<double> > u_P;
 		std::vector< std::vector<double> > u_dI;
 
+		// Thickness
+		double thickness;
+
 		// Partial perturbs
 		double perturb_u_K();
 		double perturb_u_R();
