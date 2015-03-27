@@ -15,7 +15,7 @@ MyModel<Distribution>::MyModel()
 ,u_A(Data::get_instance().get_total())
 ,u_R(Data::get_instance().get_total(), vector<double>(K_max))
 ,u_P(Data::get_instance().get_total(), vector<double>(K_max))
-,u_dI(Data::get_instance().get_total(), vector<double>(K_max))
+,n_dI(Data::get_instance().get_total(), vector<double>(K_max))
 {
 
 }
@@ -33,7 +33,7 @@ void MyModel<Distribution>::fromPrior()
 		{
 			u_R[i][j] = randomU();
 			u_P[i][j] = randomU();
-			u_dI[i][j] = randomU();
+			n_dI[i][j] = randn();
 		}
 	}
 
@@ -66,12 +66,16 @@ template<class Distribution>
 double MyModel<Distribution>::perturb_u_R()
 {
 	vector< vector<double> >* which;
+	bool normal = false;
 	if(randomU() <= 0.33333)
 		which = &(u_R);
 	else if(randomU() <= 0.5)
 		which = &(u_P);
 	else
-		which = &(u_dI);
+	{
+		normal = true;
+		which = &(n_dI);
+	}
 
 	int i, j;
 	int reps = static_cast<int>(floor(pow(10., 3.*randomU())));
@@ -80,7 +84,7 @@ double MyModel<Distribution>::perturb_u_R()
 	{
 		i = randInt(which->size());
 		j = randInt((*which)[i].size());
-		(*which)[i][j] = randomU();
+		(*which)[i][j] = (normal)?(randn()):(randomU());
 	}
 
 	return 0.;
@@ -138,8 +142,7 @@ vector<int> MyModel<Distribution>::compute_hist() const
 		// Loop over all planets around this star
 		for(int j=0; j<K; j++)
 		{
-			inclination = acos(u_A[i])
-						+ thickness*(u_dI[i][j] - 0.5);
+			inclination = acos(u_A[i]) + thickness*n_dI[i][j];
 			period = exp(log(5.) + log(100.)*u_P[i][j]);
 			a = pow((_G*period*period*stellar_mass)/(4.*M_PI*M_PI), 1./3);
 			b = a*cos(inclination)/stellar_radius;

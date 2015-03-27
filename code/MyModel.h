@@ -43,7 +43,7 @@ class MyModel:public DNest3::Model
 		// delta inclination for each planet
 		std::vector< std::vector<double> > u_R;
 		std::vector< std::vector<double> > u_P;
-		std::vector< std::vector<double> > u_dI;
+		std::vector< std::vector<double> > n_dI;
 
 		// Thickness
 		double thickness;
