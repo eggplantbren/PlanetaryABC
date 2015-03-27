@@ -36,6 +36,15 @@ class MyModel:public DNest3::Model
 		// for each star
 		std::vector<double>  u_K;
 
+		// Viewing angle of each star
+		std::vector<double> u_A;
+
+		// Parameters that determine the radius, period, and
+		// delta inclination for each planet
+		std::vector< std::vector<double> > u_R;
+		std::vector< std::vector<double> > u_P;
+		std::vector< std::vector<double> > u_dI;
+
 		// Partial perturbs
 		double perturb_u_K();
 

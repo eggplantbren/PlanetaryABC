@@ -11,6 +11,10 @@ template<class Distribution>
 MyModel<Distribution>::MyModel()
 :dist(K_max+1)
 ,u_K(Data::get_instance().get_total())
+,u_A(Data::get_instance().get_total())
+,u_R(Data::get_instance().get_total(), vector<double>(K_max))
+,u_P(Data::get_instance().get_total(), vector<double>(K_max))
+,u_dI(Data::get_instance().get_total(), vector<double>(K_max))
 {
 
 }
