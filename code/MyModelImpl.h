@@ -40,13 +40,19 @@ void MyModel<Distribution>::fromPrior()
 template<class Distribution>
 double MyModel<Distribution>::perturb_u_K()
 {
+	vector<double>* which;
+	if(randomU() <= 0.5)
+		which = &(u_K);
+	else
+		which = &(u_A);
+
 	int i;
 	int reps = static_cast<int>(floor(pow(10., 3.*randomU())));
 
 	for(int k=0; k<reps; k++)
 	{
-		i = randInt(u_K.size());
-		u_K[i] = randomU();
+		i = randInt(which->size());
+		(*which)[i] = randomU();
 	}
 
 	return 0.;
