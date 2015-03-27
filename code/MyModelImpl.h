@@ -89,7 +89,9 @@ double MyModel<Distribution>::logLikelihood() const
 template<class Distribution>
 void MyModel<Distribution>::print(std::ostream& out) const
 {
-	out<<"";
+	vector<int> hist = compute_hist();
+	for(size_t i=0; i<hist.size(); i++)
+		out<<hist[i]<<' ';
 }
 
 template<class Distribution>
