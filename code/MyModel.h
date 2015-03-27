@@ -27,7 +27,7 @@ template<class Distribution>
 class MyModel:public DNest3::Model
 {
 	private:
-		static const int K_max = 10;
+		int K_max;
 
 		// Frequency distribution of number of planets (the goal!)
 		Distribution dist;

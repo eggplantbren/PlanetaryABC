@@ -9,7 +9,8 @@ using namespace DNest3;
 
 template<class Distribution>
 MyModel<Distribution>::MyModel()
-:dist(K_max+1)
+:K_max(Data::get_instance().get_counts().size() - 1)
+,dist(K_max+1)
 ,u_K(Data::get_instance().get_total())
 ,u_A(Data::get_instance().get_total())
 ,u_R(Data::get_instance().get_total(), vector<double>(K_max))
