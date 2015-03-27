@@ -101,8 +101,8 @@ double MyModel<Distribution>::perturb()
 		logH += perturb_u_R();
 	else
 	{
-		thickness += 0.5*randh();
-		wrap(thickness, 0., 1.);
+		thickness += 0.5*M_PIrandh();
+		wrap(thickness, 0., 0.5*M_PI);
 	}
 
 	return logH;
