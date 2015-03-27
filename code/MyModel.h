@@ -23,10 +23,14 @@
 #include "Model.h"
 #include <vector>
 
+template<class Distribution>
 class MyModel:public DNest3::Model
 {
 	private:
 		static const int K_max = 10;
+
+		// Frequency distribution of number of planets (the goal!)
+		Distribution dist;
 
 		// Parameters that determine K (number of planets)
 		// for each star
@@ -34,6 +38,9 @@ class MyModel:public DNest3::Model
 
 		// Partial perturbs
 		double perturb_u_K();
+
+		// Calculate simulated histogram/data
+		std::vector<int> compute_hist() const;
 
 	public:
 		MyModel();
@@ -53,6 +60,8 @@ class MyModel:public DNest3::Model
 		// Return string with column information
 		std::string description() const;
 };
+
+#include "MyModelImpl.h"
 
 #endif
 
