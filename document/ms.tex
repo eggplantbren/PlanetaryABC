@@ -125,8 +125,16 @@ joint space of possible parameter values and datasets:
 \begin{eqnarray}
 p(\params, \data) = p(\params)p(\data | \params).
 \end{eqnarray}
-
-
+Given a data set, i.e. the proposition $\data = \data_{\rm observed}$, the
+posterior distribution for $\params$ is:
+\begin{eqnarray}
+p(\params | \data = \data_{\rm observed}) \propto
+p(\params)p(\data = \data_{\rm observed} | \params)
+\end{eqnarray}
+where $p(\data = \data_{\rm observed} | \params)$ is the likelihood function.
+Standard Bayesian computation aims to calculate the posterior distribution
+for $\params$ and makes use of the ability to evaluate the likelihood
+as a function of $\params$.
 
 
 \citep{Ballard:2014}.
