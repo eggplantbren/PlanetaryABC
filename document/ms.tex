@@ -74,6 +74,9 @@
 \newcommand{\dfmtodo}[1]{\todo{DFM}{red}{#1}}
 \newcommand{\hoggtodo}[1]{\todo{HOGG}{blue}{#1}}
 
+\newcommand{\params}{\boldsymbol{\theta}}
+\newcommand{\data}{\mathcal{D}}
+
 \begin{document}
 
 \title{%
@@ -114,6 +117,17 @@ words.
 }
 
 \section{Introduction}
+
+
+With a prior distribution $p(\params)$ and sampling distribution
+$p(\data|\params)$, we have defined the prior state of knowledge on the
+joint space of possible parameter values and datasets:
+\begin{eqnarray}
+p(\params, \data) = p(\params)p(\data | \params).
+\end{eqnarray}
+
+
+
 
 \citep{Ballard:2014}.
 
