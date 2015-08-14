@@ -144,9 +144,21 @@ space that is proportional to
 p(\params)p(\data | \params)
 \mathds{1}\left(\data = \data_{\rm observed}\right).
 \end{eqnarray}
+This distribution describes a state of knowledge that takes into account the
+data, but it describes knowledge about $\params$ {\it and} $\data$ (i.e. it
+is a probability distribution over the product space), whereas the standard
+posterior describes knowledge only about $\params$ (i.e. it is a probability
+distribution over parameter space).
 In practice, this is usually impossible since only a tiny (or formally zero)
 proportion of the volume satisfies the condition
-$\data = \data_{\rm observed}$.
+$\data = \data_{\rm observed}$. Therefore, the condition is replaced by
+an approximate one, so the target distribution is replaced by:
+\begin{eqnarray}
+p(\params)p(\data | \params)
+\mathds{1}\left(d(\data, \data_{\rm observed}) \leq \delta\right).
+\end{eqnarray}
+
+
 
 
 \citep{Ballard:2014}.
