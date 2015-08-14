@@ -25,7 +25,7 @@
 \usepackage{amssymb,amsmath}
 \usepackage{subfigure}
 \usepackage{booktabs}
-
+\usepackage{dsfont}
 \usepackage{natbib}
 \bibliographystyle{apj}
 
@@ -75,7 +75,7 @@
 \newcommand{\hoggtodo}[1]{\todo{HOGG}{blue}{#1}}
 
 \newcommand{\params}{\boldsymbol{\theta}}
-\newcommand{\data}{\mathcal{D}}
+\newcommand{\data}{\boldsymbol{D}}
 
 \begin{document}
 
@@ -119,13 +119,15 @@ words.
 \section{Introduction}
 
 
-With a prior distribution $p(\params)$ and sampling distribution
-$p(\data|\params)$, we have defined the prior state of knowledge on the
-joint space of possible parameter values and datasets:
+With a prior distribution $p(\params)$ for the parameters
+and a conditional prior $p(\data|\params)$ (also known as a `sampling
+distribution') for the data, we have defined the prior state of knowledge
+over the joint space of possible parameter values and datasets:
 \begin{eqnarray}
 p(\params, \data) = p(\params)p(\data | \params).
 \end{eqnarray}
-Given a data set, i.e. the proposition $\data = \data_{\rm observed}$, the
+Given a data set, i.e. the knowledge that the
+proposition $\data = \data_{\rm observed}$ is true, the
 posterior distribution for $\params$ is:
 \begin{eqnarray}
 p(\params | \data = \data_{\rm observed}) \propto
@@ -134,7 +136,17 @@ p(\params)p(\data = \data_{\rm observed} | \params)
 where $p(\data = \data_{\rm observed} | \params)$ is the likelihood function.
 Standard Bayesian computation aims to calculate the posterior distribution
 for $\params$ and makes use of the ability to evaluate the likelihood
-as a function of $\params$.
+as a function of $\params$. Approximate Bayesian Computation (ABC), on the
+other hand, attempts to directly sample the {\it joint posterior} for the
+parameters and the data, i.e. a probability distribution over the product
+space that is proportional to
+\begin{eqnarray}
+p(\params)p(\data | \params)
+\mathds{1}\left(\data = \data_{\rm observed}\right).
+\end{eqnarray}
+In practice, this is usually impossible since only a tiny (or formally zero)
+proportion of the volume satisfies the condition
+$\data = \data_{\rm observed}$.
 
 
 \citep{Ballard:2014}.
